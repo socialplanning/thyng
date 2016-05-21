@@ -9,5 +9,5 @@ urlpatterns = [
     url('^$', views.home),
 
     url('^login/$', views.home),
-    url('^join/$', views.home),    
+    url('^join/$', views.home),
 ]

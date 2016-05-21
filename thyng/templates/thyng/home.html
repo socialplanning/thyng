@@ -1,5 +1,17 @@
 {% extends "thyng/base.html" %}
 
 {% block content %}
-hoom
+
+{% for project in newest_projects %}
+<div>
+  {{ project.title }}
+</div>
+{% endfor %}
+
+{% for project in updated_projects %}
+<div>
+  {{ project.title }}
+</div>
+{% endfor %}
+
 {% endblock %}
