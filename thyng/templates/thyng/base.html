@@ -1,4 +1,4 @@
-{% load compress staticfiles %}
+{% load compress staticfiles i18n %}
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -17,7 +17,12 @@
           {% endblock %}
         </h1>
         <div id="topnav-tab">
-          OpenThyng
+          <a href="{% url 'home' %}">OpenThyng</a>
+          <hr>
+          <div class="user-menu">
+            <a href="{% url 'login' %}">{% blocktrans %}Sign In{% endblocktrans %}</a>
+            <a href="{% url 'join' %}">{% blocktrans %}Create an Account{% endblocktrans %}</a>            
+          </div>
         </div>
       </div>
     </div>

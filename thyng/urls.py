@@ -6,10 +6,10 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url('^$', views.home),
+    url('^$', views.home, name='home'),
 
-    url('^login/$', views.home),
-    url('^join/$', views.home),
+    url('^login/$', views.home, name='login'),
+    url('^join/$', views.home, name='join'),
 
     url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/$', views.project_home,
         name='project_home'),

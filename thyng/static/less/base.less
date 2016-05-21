@@ -47,6 +47,27 @@ div {
     padding: 5px 10px;
     font-weight: bold;
     font-size: 18px;
+    position: relative;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+    hr {
+      margin: 5px 0;
+      color: @background-accent-color;
+      border-bottom: 1px dotted #ccc;
+    }
+    div > a {
+      text-transform: lowercase;
+      font-size: 10px;
+    }
+
+    .user-menu {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+    }
   }
 }
 
