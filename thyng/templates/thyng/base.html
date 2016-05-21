@@ -1,0 +1,26 @@
+{% load compress staticfiles %}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'less/base.less' %}"
+          media="all" type="text/less">
+    {% endcompress %}
+  </head>
+  <body>
+    <div id="topnav">
+      <div class="content">
+        <h1 id="topnav-title">
+          Open Thyng Site
+        </h1>
+        <div id="topnav-tab">
+          OpenThyng
+        </div>
+      </div>
+    </div>
+    <div id="main" class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

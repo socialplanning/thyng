@@ -1,0 +1,55 @@
+@background-color: #332F2A;
+@background-accent-color: #4D4945;
+@brand-color: #6BA12A;
+
+body {
+  margin: 0;
+  font-family: "Lucida Grande", Arial, sans-serif;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: 0.75em;
+  letter-spacing: -0.0325em;
+  font-weight: normal;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+#topnav {
+  height: 80px;
+  background: @background-color;
+  border-top: 5px solid @background-accent-color;
+  
+  color: white;
+
+  #topnav-title {
+    width: 69%;
+    display: inline-block;
+  }
+
+  #topnav-tab {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    background: @background-accent-color;
+    min-height: 75px;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+#main {
+  margin-top: 15px;
+}
+
+@media screen and (min-width: 1200px) {
+  .content {
+    max-width: 950px;
+    margin: 0 auto;
+  }
+}
