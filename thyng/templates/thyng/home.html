@@ -1,17 +1,58 @@
 {% extends "thyng/base.html" %}
+{% load i18n staticfiles %}
 
 {% block content %}
 
-{% for project in newest_projects %}
-<div>
-  {{ project.title }}
-</div>
-{% endfor %}
+<div id="home">
 
-{% for project in updated_projects %}
-<div>
-  {{ project.title }}
+  <div class="left">
+    <div class="box">
+      <h2>{% blocktrans %}Do good, better.{% endblocktrans %}</h2>
+      {% blocktrans %}OpenThyng Site is the simple way to bring groups together, promote your cause, make plans, get things done and make another world possible.{% endblocktrans %}
+    </div>
+    
+    <div class="projects">
+      <h2>{% blocktrans %}Newest Projects{% endblocktrans %}</h2>
+      {% for project in newest_projects %}
+      <div class="project">
+        <img src="{% static 'img/logo_thumb.gif' %}">
+        <div>
+          <a href="{% url 'project_home' project.slug %}">{{ project.title }}</a>
+          <span>
+            {% blocktrans with created=project.created_at %}Created {{ created }}{% endblocktrans %}
+          </span>
+          <div>
+            {{ project.description }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  
+    <div class="projects">
+      <h2>{% blocktrans %}Updated Projects{% endblocktrans %}</h2>
+      {% for project in updated_projects %}
+      <div class="project">
+        <img src="{% static 'img/logo_thumb.gif' %}">
+        <div>
+          <a href="{% url 'project_home' project.slug %}">{{ project.title }}</a>
+          <span>
+            {% blocktrans with created=project.created_at %}Created {{ created }}{% endblocktrans %}
+          </span>
+          <div>
+            {{ project.description }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="right news">
+    <h2>{% blocktrans %}Site News{% endblocktrans %}</h2>
+      
+  </div>
+  
 </div>
-{% endfor %}
 
 {% endblock %}

@@ -10,4 +10,7 @@ urlpatterns = [
 
     url('^login/$', views.home),
     url('^join/$', views.home),
+
+    url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/$', views.project_home,
+        name='project_home'),
 ]

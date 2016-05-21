@@ -1,18 +1,19 @@
 @background-color: #332F2A;
 @background-accent-color: #4D4945;
 @brand-color: #6BA12A;
+@secondary-color: #EB852B;
+@secondary-accent-color: #B36521;
 
 body {
   margin: 0;
   font-family: "Lucida Grande", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-h1 {
-  font-size: 32px;
-  line-height: 0.75em;
-  letter-spacing: -0.0325em;
+h1, h2, h3 {
+  font-family: Arial, sans-serif;
   font-weight: normal;
+  margin: 0;
 }
 
 div {
@@ -22,9 +23,16 @@ div {
 #topnav {
   height: 80px;
   background: @background-color;
-  border-top: 5px solid @background-accent-color;
-  
+  border-top: 5px solid @background-accent-color;  
   color: white;
+
+  h1 {
+    margin-top: 15px;
+    font-size: 32px;
+    line-height: 0.75em;
+    letter-spacing: -0.0325em;
+    font-weight: normal;
+  }
 
   #topnav-title {
     width: 69%;
@@ -47,9 +55,128 @@ div {
   margin-top: 15px;
 }
 
+#home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .left {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .box {
+    background: #F9F9F9;
+    border-top: 2px solid #E6D3C0;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 15px;
+    
+    h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: normal;
+    }
+  }
+  
+  .projects {
+    
+    h2 {
+      margin: 0;      
+      background: @background-color;
+      color: white;
+      font-weight: normal;
+      padding: 5px;
+      font-size: 16px;
+      letter-spacing: -0.5px;
+    }
+    
+    .project {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-top: 10px;
+      border-bottom: 1px dotted @background-color;
+
+      &:last-child {
+        border-bottom: 2px solid @background-color;
+      }
+      
+      > img {
+        width: 75px;
+        height: 75px;
+        vertical-align: top;
+      }
+
+      > div {
+        display: inline-block;
+      }
+      
+      a,
+      a:visited,
+      a:link {
+        display: block;
+        color: @brand-color;
+        font-weight: bold;
+        font-size: 18px;
+        vertical-align: top;
+
+        &:hover {
+          color: @secondary-color;
+        }
+      }
+    }
+  
+  }
+
+  .news {
+    min-width: 200px;
+
+    h2 {
+      margin: 0;
+      background: @brand-color;
+      border-bottom: 2px solid @background-color;
+      color: white;
+      padding: 5px;
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+  }
+}
+
+@media screen { 
+  .left {
+    flex-basis: 100%;
+    margin-bottom: 15px;
+  }
+  .right {
+    flex-basis: 100%;
+  }
+  .projects {
+    flex-basis: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (min-width: 740px) {
+  .content {
+    margin: 0 50px;
+  }
+  .left {
+    flex-basis: 68%;
+  }
+  .right {
+    flex-basis: 30%;
+  }
+}
 @media screen and (min-width: 1200px) {
   .content {
     max-width: 950px;
     margin: 0 auto;
+  }
+  .projects {
+    flex-basis: 49%;
   }
 }

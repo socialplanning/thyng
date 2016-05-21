@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 from .factories import ProjectFactory
 
@@ -20,8 +21,15 @@ class BasicTest(TestCase):
         Items in 'newest projects' are excluded from 'updated projects'
         """
         projects = []
-        while len(projects) < 10:
+        while len(projects) < 11:
             projects.append(ProjectFactory())
         rsp = self.client.get("/")
-        for project in projects:
+
+        self.assertNotIn(projects[0].title, rsp.content)
+        for project in projects[1:]:
             self.assertIn(project.title, rsp.content)
+
+    def test_project_homepage(self):
+        project = ProjectFactory()
+        rsp = self.client.get(reverse('project_home', args=[project.slug]))
+        self.assertEqual(200, rsp.status_code)

@@ -1,4 +1,5 @@
 from djangohelpers.lib import rendered_with, allow_http
+from django.shortcuts import get_object_or_404
 
 from .models import Project
 
@@ -14,4 +15,15 @@ def home(request):
     return {
         'newest_projects': newest_projects,
         'updated_projects': updated_projects,
+    }
+
+
+@allow_http("GET")
+@rendered_with("thyng/project_home.html")
+def project_home(request, slug):
+
+    project = get_object_or_404(Project, slug=slug)
+
+    return {
+        'project': project
     }

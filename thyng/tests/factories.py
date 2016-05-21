@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 import factory
 import factory.fuzzy
 
@@ -9,3 +10,4 @@ class ProjectFactory(factory.DjangoModelFactory):
         model = models.Project
 
     title = factory.fuzzy.FuzzyText()
+    slug = factory.LazyAttribute(lambda obj: slugify(obj.title))
