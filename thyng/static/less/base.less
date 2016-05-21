@@ -40,7 +40,6 @@ div {
   }
 
   #topnav-tab {
-    display: inline-block;
     width: 30%;
     vertical-align: top;
     background: @background-accent-color;
@@ -146,7 +145,10 @@ div {
   }
 }
 
-@media screen { 
+@media screen {
+  #topnav-tab {
+    display: none;
+  }
   .left {
     flex-basis: 100%;
     margin-bottom: 15px;
@@ -157,6 +159,12 @@ div {
   .projects {
     flex-basis: 100%;
     margin-bottom: 15px;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  #topnav-tab {
+    display: inline-block;
   }
 }
 
