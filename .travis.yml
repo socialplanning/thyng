@@ -1,0 +1,28 @@
+language: python
+
+sudo: false
+
+python:
+  - '2.7'
+
+addons:
+  postgresql: '9.3'
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+install:
+  - pip install -U pip
+  - pip install -U -r requirements.txt
+
+before_script:
+  - createdb -E UTF-8 thyng -U postgres -O $USER
+  - find . -name '*.pyc' -delete
+  - coverage erase
+
+script:
+  - python manage.py makemigrations --dry-run | grep 'No changes detected' || (echo 'There are changes which require migrations.' && exit 1)
+  - coverage run manage.py test
+  - coverage report -m --fail-under 80
+  - flake8 .
