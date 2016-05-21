@@ -17,6 +17,7 @@ install:
   - pip install -U -r requirements.txt
 
 before_script:
+  - npm install -g lessc
   - createdb -E UTF-8 thyng -U postgres -O $USER
   - find . -name '*.pyc' -delete
   - coverage erase
