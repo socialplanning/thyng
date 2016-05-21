@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from .factories import ProjectFactory
 
+
 class BasicTest(TestCase):
 
     def test_homepage(self):
