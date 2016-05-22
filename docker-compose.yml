@@ -1,0 +1,37 @@
+django:
+  restart: always
+  build: ./django
+  expose:
+    - "8000"
+  volumes:
+    - /code
+    - /code/static
+    - /usr/src/app
+    - /usr/src/app/static
+    - /root/.cache/pip/wheels/
+    - /usr/local/lib/python2.7
+    - /usr/lib/python2.7    
+  links:
+      - postgres:postgres
+  env_file: .env
+  command: python manage.py runserver 0.0.0.0:8000
+
+postgres:
+  restart: always
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+  volumes:
+    - pgdata:/var/lib/postgresql/data/
+
+nginx:
+  restart: always
+  build: ./nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - /www/static
+  volumes_from:
+    - django
+  links:
+    - django:django

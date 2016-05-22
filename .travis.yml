@@ -1,6 +1,7 @@
+sudo: required
+services:
+  - docker
 language: python
-
-sudo: false
 
 python:
   - '2.7'
@@ -13,20 +14,18 @@ cache:
     - $HOME/.cache/pip
 
 install:
-  - pip install -U pip
-  - pip install -U -r requirements.txt
+  - docker-compose build
+  - docker-compose up -d
 
 before_script:
-  - npm install -g less
-  - createdb -E UTF-8 thyng -U postgres -O $USER
   - find . -name '*.pyc' -delete
   - coverage erase
 
 script:
-  - python manage.py makemigrations --dry-run | grep 'No changes detected' || (echo 'There are changes which require migrations.' && exit 1)
-  - coverage run manage.py test thyng
-  - coverage report -m --fail-under 80
-  - flake8 . --exclude=ve,settings.py,migrations
+  - docker-compose run django python manage.py makemigrations --dry-run | grep 'No changes detected' || (echo 'There are changes which require migrations.' && exit 1)
+  - docker-compose run django coverage run manage.py test thyng
+  - docker-compose run django coverage report -m --fail-under 80
+  - docker-compose run django flake8 . --exclude=ve,settings.py,migrations
 
 notifications:
   email: false
