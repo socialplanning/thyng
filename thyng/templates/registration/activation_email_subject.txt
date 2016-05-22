@@ -1,0 +1,5 @@
+{% load i18n %}
+
+{% blocktrans %}
+Welcome to Open Thyng Site! - Please confirm your email address
+{% endblocktrans %}

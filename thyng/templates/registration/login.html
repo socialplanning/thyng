@@ -6,28 +6,10 @@
 <div class="left">
   <div class="box">
     <h2>{% blocktrans %}Sign In{% endblocktrans %}</h2>
-    <form method="POST">
+    <form action="{% url 'auth_login' %}" method="POST">
+      {% csrf_token %}
       <table>
-        <tr>
-          <th scope="row">
-            <label for="username">
-              {% blocktrans %}Username{% endblocktrans %}
-            </label>
-          </th>
-          <td>
-            <input id="username" name="username">
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">
-            <label for="password">
-              {% blocktrans %}Password{% endblocktrans %}
-            </label>
-          </th>
-          <td>
-            <input id="password" name="password" type="password">
-          </td>
-        </tr>
+        {{ form.as_table }}
         <tr>
           <th scope="row">            
           </th>
@@ -55,7 +37,7 @@
       Whether your group is mobilizing voters, planning a protect, or growing a garden,
       OpenThyng Site can help you become more effective.
       {% endblocktrans %}
-      <a href="{% url 'join' %}" class="button">
+      <a href="{% url 'registration_register' %}" class="button">
         {% blocktrans %}Join Open Thyng Site{% endblocktrans %}
       </a>
   </div>

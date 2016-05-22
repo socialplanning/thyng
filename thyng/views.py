@@ -27,13 +27,3 @@ def project_home(request, slug):
     return {
         'project': project
     }
-
-@allow_http("GET")
-@rendered_with("thyng/login.html")
-def login(request):
-    return {}
-
-@allow_http("GET")
-@rendered_with("thyng/join.html")
-def join(request):
-    return {}

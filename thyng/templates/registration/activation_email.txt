@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% url 'registration_activate' activation_key as activation_url %}
+{% blocktrans with site_url=site.domain username=request.POST.full_name %}
+{{ username }},
+
+You recently signed up to use Open Thyng Site.
+
+Please confirm your email address at the following address: {{ activation_url }}
+
+If you cannot click on the link, you can cut and paste it into your browser's address bar.
+
+Once you have confirmed, you can start using Open Thyng Site.
+
+If you did not initiate this request or believe it was sent in error you can safely ignore this message.
+
+Cheers,
+The Open Thyng Site Team
+{{ site_url }}
+{% endblocktrans %}
