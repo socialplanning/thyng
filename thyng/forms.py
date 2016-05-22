@@ -5,6 +5,8 @@ from django.utils.translation import ugettext as _
 
 from registration.forms import RegistrationFormUniqueEmail
 
+from .models import Project
+
 
 class ThyngLayoutForm(object):
     def as_table(self):
@@ -16,6 +18,12 @@ class ThyngLayoutForm(object):
             row_ender='</td></tr>',
             help_text_html='<span class="helptext">%s</span>',
             errors_on_separate_row=False)
+
+
+class ProjectCreateForm(ThyngLayoutForm, forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['title', 'slug', 'description']
 
 
 class AuthenticationForm(ThyngLayoutForm, BaseAuthenticationForm):

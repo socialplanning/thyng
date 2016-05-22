@@ -23,6 +23,8 @@ urlpatterns = [
                            'authentication_form': AuthenticationForm},
         name='auth_login'),
 
+    url('^projects/create/$', views.create_project,
+        name='create_project'),
     url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/$', views.project_home,
         name='project_home'),
 ]
