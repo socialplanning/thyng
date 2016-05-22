@@ -1,7 +1,9 @@
 from djangohelpers.lib import rendered_with, allow_http
-from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect
 
-from .models import Project
+from .forms import ProjectCreateForm
+from .models import Project, ProjectMember
 
 
 @allow_http("GET")
@@ -39,3 +41,26 @@ def project_home(request, slug):
     return {
         'project': project
     }
+
+
+@allow_http("GET", "POST")
+@rendered_with("thyng/create_project.html")
+def create_project(request):
+    if request.user.is_anonymous():
+        return redirect(reverse("auth_login"))
+
+    form = ProjectCreateForm(data=request.POST or None)
+
+    if request.method == "GET" or not form.is_valid():
+        return {
+            'form': form
+        }
+
+    project = form.save(commit=False)
+    project.creator = request.user
+    project.save()
+
+    ProjectMember(project=project, user=request.user,
+                  role=Project.ADMIN_ROLE).save()
+
+    return redirect(reverse('project_home', args=[project.slug]))

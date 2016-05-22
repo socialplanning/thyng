@@ -1,0 +1,37 @@
+{% extends "thyng/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="full">
+  <h2>{% blocktrans %}Start a project{% endblocktrans %}</h2>
+  <div>
+    {% blocktrans %}
+    Each project is a toolbox to help you get things done.
+    Using your project you can team up with others, sketch out your plans,
+    and keep track of your progress.
+    {% endblocktrans %}
+  </div>
+  <form action="{% url 'create_project' %}" method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend>
+        {% blocktrans %}Step 1: Basics{% endblocktrans %}
+      </legend>
+      <table>
+        {{ form.as_table }}
+      </table>
+    </fieldset>
+
+    <table>
+      <tr>
+        <td>
+          <input type="submit" value="{% blocktrans %}Create{% endblocktrans %}">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</div>
+
+{% endblock %}
