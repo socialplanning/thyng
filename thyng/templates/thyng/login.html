@@ -1,0 +1,64 @@
+{% extends "thyng/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="left">
+  <div class="box">
+    <h2>{% blocktrans %}Sign In{% endblocktrans %}</h2>
+    <form method="POST">
+      <table>
+        <tr>
+          <th scope="row">
+            <label for="username">
+              {% blocktrans %}Username{% endblocktrans %}
+            </label>
+          </th>
+          <td>
+            <input id="username" name="username">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <label for="password">
+              {% blocktrans %}Password{% endblocktrans %}
+            </label>
+          </th>
+          <td>
+            <input id="password" name="password" type="password">
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">            
+          </th>
+          <td>
+            <input type="checkbox" name="persistent" id="persistent" value="persistent">
+            <label for="persistent">
+              {% blocktrans %}Keep me logged in{% endblocktrans %}
+            </label>            
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td>
+            <input type="submit" value="{% blocktrans %}Sign in{% endblocktrans %}">
+          </td>
+      </table>
+    </form>
+  </div>
+</div>
+<div class="right">
+  <div class="banana">
+    <h2>{% blocktrans %}New Users{% endblocktrans %}</h2>
+    <div>
+      {% blocktrans %}
+      Whether your group is mobilizing voters, planning a protect, or growing a garden,
+      OpenThyng Site can help you become more effective.
+      {% endblocktrans %}
+      <a href="{% url 'join' %}" class="button">
+        {% blocktrans %}Join Open Thyng Site{% endblocktrans %}
+      </a>
+  </div>
+</div>
+
+{% endblock %}
