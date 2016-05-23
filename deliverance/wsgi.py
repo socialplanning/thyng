@@ -25,17 +25,19 @@ class ProxyApp(object):
             return resp(environ, start_response)
 
         subreq = Request(dict(environ)).copy()
-        script_name = resp.headers['X-Thyng-Script-Name'].lstrip("/")
-        prefix = resp.headers['X-Thyng-Prefix'].rstrip("/")
-        path_info = (prefix + "/" +
-                     resp.headers['X-Thyng-Path-Info'].lstrip("/")).lstrip("/")
+        container = resp.headers['X-Thyng-Container-Url'].lstrip("/")
+        featurelet = resp.headers['X-Thyng-Featurelet-Slug'].lstrip("/")
+        instance = resp.headers['X-Thyng-Featurelet-Instance'].rstrip("/")
+        path_info = (
+            instance + "/" +
+            resp.headers['X-Thyng-Path-Info'].lstrip("/")).lstrip("/")
         subreq.path_info = path_info
         proxy = resp.headers['Location']
         resp = subreq.get_response(self.proxies[proxy])
         resp = rewritelinks.rewrite_links(
             req, resp,
-            'http://trac:8001/' + prefix,
-            'http://django:8000/' + script_name.strip('/') + '/tasks/',
+            'http://trac:8001/' + instance,
+            'http://django:8000/' + container.strip('/') + '/' + featurelet,
             'http://trac:8001/' + subreq.path_info)
         return resp(environ, start_response)
 

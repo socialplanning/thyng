@@ -35,3 +35,11 @@ class ProjectMember(models.Model):
         (Project.USER_ROLE, _("Member")),
         (Project.ADMIN_ROLE, _("Admin")),
     ])
+
+
+class ProjectFeaturelet(models.Model):
+    project = models.ForeignKey(Project)
+    slug = models.CharField(max_length=25)
+    proxy = models.CharField(max_length=25)
+    instance = models.CharField(max_length=100)
+

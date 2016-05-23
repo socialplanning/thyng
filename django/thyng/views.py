@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 
 from .forms import ProjectCreateForm
-from .models import Project, ProjectMember
+from .models import Project, ProjectMember, ProjectFeaturelet
 
 
 @allow_http("GET")
@@ -33,14 +33,16 @@ def project_home(request, slug):
 
 
 @allow_http("GET", "POST")
-def trac(request, slug, path):
-
-    project = get_object_or_404(Project, slug=slug)
+def featurelet(request, slug, featurelet, path):
+    featurelet = get_object_or_404(ProjectFeaturelet,
+                                   project__slug=slug,
+                                   slug=featurelet)
 
     resp = HttpResponse(status=305)
-    resp['Location'] = 'trac'
-    resp['X-Thyng-Script-Name'] = reverse('project_home', args=[project.slug])
-    resp['X-Thyng-Prefix'] = "Foods"
+    resp['Location'] = featurelet.proxy
+    resp['X-Thyng-Container-Url'] = reverse('project_home', args=[slug])
+    resp['X-Thyng-Featurelet-Slug'] = featurelet.slug
+    resp['X-Thyng-Featurelet-Instance'] = featurelet.instance
     resp['X-Thyng-Path-Info'] = path
     return resp
 

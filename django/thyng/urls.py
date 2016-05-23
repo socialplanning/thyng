@@ -27,6 +27,6 @@ urlpatterns = [
         name='create_project'),
     url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/$', views.project_home,
         name='project_home'),
-    url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/tasks/(?P<path>.*)$', views.trac,
-        name='trac'),
+    url('^projects/(?P<slug>[0-9a-zA-Z\-\_]+)/(?P<featurelet>[0-9a-zA-Z\-\_]+)/(?P<path>.*)$', views.featurelet,
+        name='featurelet'),
 ]
