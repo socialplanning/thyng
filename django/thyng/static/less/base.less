@@ -86,9 +86,11 @@ div {
 
 #main {
   margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  &:not(.theme) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 }
 
 .left {

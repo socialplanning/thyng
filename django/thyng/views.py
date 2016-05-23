@@ -50,7 +50,10 @@ def featurelet(request, slug, featurelet, path):
     resp['X-Thyng-Path-Info'] = path
     resp.write(render_to_string(
         'thyng/project_home.html',
-        {'project': featurelet.project}))
+        {
+            'project': featurelet.project,
+            'is_theme': True,
+        }))
     return resp
 
 
