@@ -6,15 +6,36 @@ django:
   volumes:
     - /code
     - /code/static
-    - /usr/src/app
-    - /usr/src/app/static
-    - /root/.cache/pip/wheels/
-    - /usr/local/lib/python2.7
-    - /usr/lib/python2.7    
   links:
       - postgres:postgres
   env_file: .env
   command: python manage.py runserver 0.0.0.0:8000
+
+deliverance:
+  restart: always
+  build: ./deliverance
+  expose:
+    - "8002"
+  volumes:
+    - /code
+  links:
+    - django:django
+    - trac:trac
+  env_file: .env
+  command: python wsgi.py 8002
+
+trac:
+  restart: always
+  build: ./trac
+  expose:
+    - "8001"
+  volumes:
+    - /code
+    - tracsites:/srv/my-sites
+  links:
+      - postgres:postgres
+  env_file: .env
+  command: tracd -p 8001 -e /srv/my-sites
 
 postgres:
   restart: always
@@ -34,4 +55,4 @@ nginx:
   volumes_from:
     - django
   links:
-    - django:django
+    - deliverance:deliverance

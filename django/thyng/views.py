@@ -1,5 +1,6 @@
 from djangohelpers.lib import rendered_with, allow_http
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 
 from .forms import ProjectCreateForm
@@ -29,6 +30,19 @@ def project_home(request, slug):
     return {
         'project': project
     }
+
+
+@allow_http("GET", "POST")
+def trac(request, slug, path):
+
+    project = get_object_or_404(Project, slug=slug)
+
+    resp = HttpResponse(status=305)
+    resp['Location'] = 'trac'
+    resp['X-Thyng-Script-Name'] = reverse('project_home', args=[project.slug])
+    resp['X-Thyng-Prefix'] = "Foods"
+    resp['X-Thyng-Path-Info'] = path
+    return resp
 
 
 @allow_http("GET", "POST")

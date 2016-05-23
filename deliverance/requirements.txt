@@ -1,0 +1,8 @@
+Paste
+PasteScript
+PasteDeploy
+WebOb
+WSGIFilter
+WSGIProxy
+lxml
+
