@@ -5,4 +5,4 @@ WebOb
 WSGIFilter
 WSGIProxy
 lxml
-
+cssselect

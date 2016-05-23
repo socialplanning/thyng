@@ -8,7 +8,7 @@ from http_proxy_cookielib import limit_cookie
 
 _cookie_domain_re = re.compile(r'(domain="?)([a-z0-9._-]*)("?)', re.I)
 
-def rewrite_links(request, response,
+def rewrite_links(response,
                   proxied_base, orig_base,
                   proxied_url):
 
@@ -22,10 +22,6 @@ def rewrite_links(request, response,
             or proxied_url.split('?', 1)[0] == proxied_base[:-1]), (
         "Unexpected proxied_url %r, doesn't start with proxied_base %r"
         % (proxied_url, proxied_base))
-    assert (request.url.startswith(orig_base) 
-            or request.url.split('?', 1)[0] == orig_base[:-1]), (
-        "Unexpected request.url %r, doesn't start with orig_base %r"
-        % (request.url, orig_base))
 
     def link_repl_func(link):
         """Rewrites a link to point to this proxy"""
@@ -64,7 +60,7 @@ def rewrite_links(request, response,
         del response.headers['set-cookie']
         for cook in cookies:
             old_domain = urlparse.urlsplit(proxied_url)[1].lower()
-            new_domain = request.host.split(':', 1)[0].lower()
+            new_domain = orig_base.split(":")[0].lower().lstrip("http://")
             def rewrite_domain(match):
                 """Rewrites domains to point to this proxy"""
                 domain = match.group(2)

@@ -2,6 +2,8 @@ from djangohelpers.lib import rendered_with, allow_http
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import ProjectCreateForm
 from .models import Project, ProjectMember, ProjectFeaturelet
@@ -32,11 +34,13 @@ def project_home(request, slug):
     }
 
 
+@csrf_exempt
 @allow_http("GET", "POST")
 def featurelet(request, slug, featurelet, path):
-    featurelet = get_object_or_404(ProjectFeaturelet,
-                                   project__slug=slug,
-                                   slug=featurelet)
+    featurelet = get_object_or_404(
+        ProjectFeaturelet.objects.select_related("project"),
+        project__slug=slug,
+        slug=featurelet)
 
     resp = HttpResponse(status=305)
     resp['Location'] = featurelet.proxy
@@ -44,6 +48,9 @@ def featurelet(request, slug, featurelet, path):
     resp['X-Thyng-Featurelet-Slug'] = featurelet.slug
     resp['X-Thyng-Featurelet-Instance'] = featurelet.instance
     resp['X-Thyng-Path-Info'] = path
+    resp.write(render_to_string(
+        'thyng/project_home.html',
+        {'project': featurelet.project}))
     return resp
 
 
