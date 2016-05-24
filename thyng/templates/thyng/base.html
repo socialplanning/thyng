@@ -14,10 +14,19 @@
         <div class="topnav-mainnav">
           <h1 id="topnav-title">
             {% block title %}
+            {% if project %}
+            {{ project.title }}
+            {% else %}
             Open Thyng Site
+            {% endif %}
             {% endblock %}
           </h1>
           <ul id="topnav-context">
+            {% if project %}
+            {% for nav_entry in project.nav_entries %}
+            <li><a href="{{ nav_entry.href }}">{{ nav_entry.title }}</a></li>
+            {% endfor %}
+            {% else %}
             <li>
               <a href="">
                 {% blocktrans %}People{% endblocktrans %}
@@ -33,6 +42,7 @@
                 {% blocktrans %}Start a Project{% endblocktrans %}
               </a>
             </li>
+            {% endif %}
           </ul>
         </div>
         <div id="topnav-tab">
