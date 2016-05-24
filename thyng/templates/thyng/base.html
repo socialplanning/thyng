@@ -20,8 +20,12 @@
           <a href="{% url 'home' %}">OpenThyng</a>
           <hr>
           <div class="user-menu">
-            <a href="{% url 'login' %}">{% blocktrans %}Sign In{% endblocktrans %}</a>
-            <a href="{% url 'join' %}">{% blocktrans %}Create an Account{% endblocktrans %}</a>            
+            {% if request.user.is_anonymous %}
+            <a href="{% url 'auth_login' %}">{% blocktrans %}Sign In{% endblocktrans %}</a>
+            <a href="{% url 'registration_register' %}">{% blocktrans %}Create an Account{% endblocktrans %}</a>
+            {% else %}
+            {{ request.user }}
+            {% endif %}
           </div>
         </div>
       </div>

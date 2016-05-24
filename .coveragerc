@@ -1,6 +1,6 @@
 [run]
 branch = true
-omit = */tests/*, */migrations/*, */urls.py, */settings/*, */wsgi.py, */manage.py
+omit = ./ve/*, */tests/*, */migrations/*, */urls.py, */settings/*, */wsgi.py, */manage.py
 source = .
 
 [report]

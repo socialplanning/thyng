@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    
     'thyng',
 ]
 
@@ -67,12 +66,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ATOMIC_REQUESTS': True,
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'thyng.registration_backend.RegistrationAuthBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -120,4 +121,6 @@ STATICFILES_FINDERS = (
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+ACCOUNT_ACTIVATION_DAYS = 7
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
