@@ -5,6 +5,18 @@ from .models import Project
 
 
 @allow_http("GET")
+@rendered_with("registration/registration_complete.html")
+def registration_complete(request):
+    return {}
+
+
+@allow_http("GET")
+@rendered_with("registration/registration_activation_complete.html")
+def registration_activation_complete(request):
+    return {}
+
+
+@allow_http("GET")
 @rendered_with("thyng/home.html")
 def home(request):
 
