@@ -30,10 +30,14 @@ class Project(models.Model):
             {"href": "", "title": _("Summary")},
             {"href": "", "title": _("Team")},
             {"href": "", "title": _("Contents")},
-            {"href": "", "title": _("Manage Team"), "roles": [Project.ADMIN_ROLE]},
-            {"href": "", "title": _("Preferences"), "roles": [Project.ADMIN_ROLE]},
-            {"href": "", "title": _("Join Project"), "roles": [Project.NONMEMBER_ROLE]},
+            {"href": "", "title": _("Manage Team"),
+             "roles": [Project.ADMIN_ROLE]},
+            {"href": "", "title": _("Preferences"),
+             "roles": [Project.ADMIN_ROLE]},
+            {"href": "", "title": _("Join Project"),
+             "roles": [Project.NONMEMBER_ROLE]},
         ]
+
 
 class ProjectMember(models.Model):
     user = models.ForeignKey(User)

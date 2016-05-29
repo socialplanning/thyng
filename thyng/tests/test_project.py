@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-import lxml.html
 
 from ..models import Project, ProjectMember
 from .factories import UserFactory, ProjectFactory, ProjectMemberFactory
@@ -47,8 +46,8 @@ class BasicTest(TestCase):
 
     def test_project_topnav(self):
         project = ProjectFactory(creator=self.user)
-        member = ProjectMemberFactory(user=self.user, project=project,
-                                      role=Project.ADMIN_ROLE)
+        ProjectMemberFactory(user=self.user, project=project,
+                             role=Project.ADMIN_ROLE)
         self.client.login(username=self.user.username, password=self.password)
 
         self.assertContains(self.client.get('/'), 'Start a Project')

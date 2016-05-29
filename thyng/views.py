@@ -40,7 +40,8 @@ def project_home(request, slug):
     membership = None
     if request.user.is_authenticated():
         try:
-            membership = ProjectMember.objects.get(project=project, user=request.user)
+            membership = ProjectMember.objects.get(
+                project=project, user=request.user)
         except ProjectMember.DoesNotExist:
             pass
     if membership is None:

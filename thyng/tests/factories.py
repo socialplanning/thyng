@@ -16,8 +16,8 @@ class ProjectFactory(factory.DjangoModelFactory):
 
 class ProjectMemberFactory(factory.DjangoModelFactory):
     class Meta:
-        model= models.ProjectMember
-    
+        model = models.ProjectMember
+
 
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
