@@ -37,9 +37,18 @@ def home(request):
 def project_home(request, slug):
 
     project = get_object_or_404(Project, slug=slug)
+    membership = None
+    if request.user.is_authenticated():
+        try:
+            membership = ProjectMember.objects.get(project=project, user=request.user)
+        except ProjectMember.DoesNotExist:
+            pass
+    if membership is None:
+        membership = {"role": None}
 
     return {
-        'project': project
+        'project': project,
+        'membership': membership,
     }
 
 

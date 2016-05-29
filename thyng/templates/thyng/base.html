@@ -24,7 +24,9 @@
           <ul id="topnav-context">
             {% if project %}
             {% for nav_entry in project.nav_entries %}
+            {% if not nav_entry.roles or membership.role in nav_entry.roles %}
             <li><a href="{{ nav_entry.href }}">{{ nav_entry.title }}</a></li>
+            {% endif %}
             {% endfor %}
             {% else %}
             <li>
