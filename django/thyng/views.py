@@ -10,6 +10,18 @@ from .models import Project, ProjectMember, ProjectFeaturelet
 
 
 @allow_http("GET")
+@rendered_with("registration/registration_complete.html")
+def registration_complete(request):
+    return {}
+
+
+@allow_http("GET")
+@rendered_with("registration/registration_activation_complete.html")
+def registration_activation_complete(request):
+    return {}
+
+
+@allow_http("GET")
 @rendered_with("thyng/home.html")
 def home(request):
 
@@ -26,11 +38,20 @@ def home(request):
 @allow_http("GET")
 @rendered_with("thyng/project_home.html")
 def project_home(request, slug):
-
     project = get_object_or_404(Project, slug=slug)
+    membership = None
+    if request.user.is_authenticated():
+        try:
+            membership = ProjectMember.objects.get(
+                project=project, user=request.user)
+        except ProjectMember.DoesNotExist:
+            pass
+    if membership is None:
+        membership = {"role": None}
 
     return {
-        'project': project
+        'project': project,
+        'membership': membership,
     }
 
 

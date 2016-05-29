@@ -10,7 +10,8 @@ class Project(models.Model):
 
     ADMIN_ROLE = 'admin'
     USER_ROLE = 'user'
-
+    NONMEMBER_ROLE = None
+    
     slug = models.SlugField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
 
@@ -23,6 +24,19 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.slug
+
+    def nav_entries(self):
+        return [
+            {"href": "", "title": _("Summary")},
+            {"href": "", "title": _("Team")},
+            {"href": "", "title": _("Contents")},
+            {"href": "", "title": _("Manage Team"),
+             "roles": [Project.ADMIN_ROLE]},
+            {"href": "", "title": _("Preferences"),
+             "roles": [Project.ADMIN_ROLE]},
+            {"href": "", "title": _("Join Project"),
+             "roles": [Project.NONMEMBER_ROLE]},
+        ]
 
 
 class ProjectMember(models.Model):

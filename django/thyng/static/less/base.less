@@ -1,5 +1,6 @@
 @background-color: #332F2A;
 @background-accent-color: #4D4945;
+@background-highlight-color: #665D55;
 @brand-color: #6BA12A;
 @secondary-color: #EB852B;
 @secondary-accent-color: #B36521;
@@ -47,9 +48,32 @@ div {
     font-weight: normal;
   }
 
-  #topnav-title {
+  .topnav-mainnav {
     width: 69%;
     display: inline-block;
+
+    h1#topnav-title {
+
+    }
+
+    ul#topnav-context {
+      list-style-type: none;
+      margin: 10px 0;
+      padding: 0;
+      
+      li {
+        display: inline-block;
+        background: @background-highlight-color;
+        
+        a {
+          color: white;
+          font-size: 10px;
+          font-weight: bold;
+          text-decoration: none;
+          padding: 10px 5px;
+        }
+      }
+    }
   }
 
   #topnav-tab {

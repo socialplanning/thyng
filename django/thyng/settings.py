@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    
     'thyng',
 ]
 
@@ -68,9 +67,15 @@ DATABASES = {
         'USER': os.environ['DB_USER'] if 'DB_USER' in os.environ else None,
         'PASSWORD': os.environ['DB_PASS'] if 'DD_PASS' in os.environ else None,
         'HOST': os.environ['DB_SERVICE'] if 'DB_SERVICE' in os.environ else None,
-        'PORT': os.environ['DB_PORT'] if 'DB_PORT' in os.environ else None
+        'PORT': os.environ['DB_PORT'] if 'DB_PORT' in os.environ else None,
+        'ATOMIC_REQUESTS': True,
     }
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'thyng.registration_backend.RegistrationAuthBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
