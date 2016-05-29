@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from ..models import Project, ProjectMember
-from .factories import UserFactory
+from .factories import UserFactory, ProjectFactory, ProjectMemberFactory
 
 
 class BasicTest(TestCase):
@@ -43,3 +43,26 @@ class BasicTest(TestCase):
         self.assertEqual(project.creator, self.user)
 
         self.assertEqual(unicode(project), 'project-one')
+
+    def test_project_topnav(self):
+        project = ProjectFactory(creator=self.user)
+        ProjectMemberFactory(user=self.user, project=project,
+                             role=Project.ADMIN_ROLE)
+        self.client.login(username=self.user.username, password=self.password)
+
+        self.assertContains(self.client.get('/'), 'Start a Project')
+
+        home = reverse('project_home', args=[project.slug])
+        rsp = self.client.get(home)
+
+        self.assertNotContains(rsp, 'Start a Project')
+        self.assertContains(rsp, 'Summary')
+        self.assertContains(rsp, 'Manage Team')
+        self.assertNotContains(rsp, 'Join Project')
+
+        self.client.logout()
+        rsp = self.client.get(home)
+        self.assertNotContains(rsp, 'Start a Project')
+        self.assertContains(rsp, 'Summary')
+        self.assertNotContains(rsp, 'Manage Team')
+        self.assertContains(rsp, 'Join Project')
