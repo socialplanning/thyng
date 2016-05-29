@@ -14,6 +14,11 @@ class ProjectFactory(factory.DjangoModelFactory):
     slug = factory.LazyAttribute(lambda obj: slugify(obj.title))
 
 
+class ProjectMemberFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = models.ProjectMember
+
+
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = get_user_model()

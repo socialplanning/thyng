@@ -1,5 +1,6 @@
 @background-color: #332F2A;
 @background-accent-color: #4D4945;
+@background-highlight-color: #665D55;
 @brand-color: #6BA12A;
 @secondary-color: #EB852B;
 @secondary-accent-color: #B36521;
@@ -24,6 +25,11 @@ h1, h2, h3 {
   margin: 0;
 }
 
+h2 {
+  font-size: 24px;
+  letter-spacing: -0.0325em;
+}
+
 div {
   box-sizing: border-box;
 }
@@ -42,9 +48,32 @@ div {
     font-weight: normal;
   }
 
-  #topnav-title {
+  .topnav-mainnav {
     width: 69%;
     display: inline-block;
+
+    h1#topnav-title {
+
+    }
+
+    ul#topnav-context {
+      list-style-type: none;
+      margin: 10px 0;
+      padding: 0;
+      
+      li {
+        display: inline-block;
+        background: @background-highlight-color;
+        
+        a {
+          color: white;
+          font-size: 10px;
+          font-weight: bold;
+          text-decoration: none;
+          padding: 10px 5px;
+        }
+      }
+    }
   }
 
   #topnav-tab {
@@ -231,6 +260,22 @@ div {
 }
 
 form {
+
+  fieldset {
+    border: none;
+    .box;
+    margin: 10px 0;
+    padding: 0;
+
+    legend {
+      font-size: 16px;
+      margin-left: 15px;
+      padding-top: 3px;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+    }
+  }
+  
   th {
     padding-left: 25px;
     text-align: right;

@@ -11,13 +11,46 @@
   <body>
     <div id="topnav">
       <div class="content">
-        <h1 id="topnav-title">
-          {% block title %}
-          Open Thyng Site
-          {% endblock %}
-        </h1>
+        <div class="topnav-mainnav">
+          <h1 id="topnav-title">
+            {% block title %}
+            {% if project %}
+            {{ project.title }}
+            {% else %}
+            Open Thyng Site
+            {% endif %}
+            {% endblock %}
+          </h1>
+          <ul id="topnav-context">
+            {% if project %}
+            {% for nav_entry in project.nav_entries %}
+            {% if not nav_entry.roles or membership.role in nav_entry.roles %}
+            <li><a href="{{ nav_entry.href }}">{{ nav_entry.title }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            <li>
+              <a href="">
+                {% blocktrans %}People{% endblocktrans %}
+              </a>
+            </li>
+            <li>
+              <a href="">
+                {% blocktrans %}Projects{% endblocktrans %}
+              </a>
+            </li>
+            <li>
+              <a href="">
+                {% blocktrans %}Start a Project{% endblocktrans %}
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
         <div id="topnav-tab">
-          <a href="{% url 'home' %}">OpenThyng</a>
+          <a href="{% url 'home' %}">
+            {% blocktrans %}OpenThyng{% endblocktrans %}
+          </a>
           <hr>
           <div class="user-menu">
             {% if request.user.is_anonymous %}
