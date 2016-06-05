@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
-    'thyng',
+    'thyng.apps.MyAppConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
