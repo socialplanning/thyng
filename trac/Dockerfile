@@ -6,4 +6,4 @@ RUN pip install -r /code/requirements.txt
 RUN apt-get update && apt-get install -y postgresql-client
 ADD . /code/
 RUN mkdir -p /srv/my-sites
-
+RUN cp ./auth_plugin.py /srv/my-sites/Foods/plugins/auth_plugin.py

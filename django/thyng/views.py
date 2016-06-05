@@ -65,6 +65,8 @@ def featurelet(request, slug, featurelet, path):
 
     resp = HttpResponse(status=305)
     resp['Location'] = featurelet.proxy
+    if request.user.is_authenticated():
+        resp['X-Thyng-Remote-User'] = request.user.username
     resp['X-Thyng-Container-Url'] = reverse('project_home', args=[slug])
     resp['X-Thyng-Featurelet-Slug'] = featurelet.slug
     resp['X-Thyng-Featurelet-Instance'] = featurelet.instance
